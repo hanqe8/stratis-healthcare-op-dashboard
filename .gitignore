@@ -1,0 +1,12 @@
+node_modules
+dist
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+vitest.config.js
+vitest.config.d.ts
+tailwind.config.js
+tailwind.config.d.ts
+*.log
+stratis-healthcare-ops-*-check.png
+.github/workflows/pages.yml
