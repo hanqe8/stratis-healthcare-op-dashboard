@@ -34,7 +34,7 @@
   --stratis-chart-highlight: var(--stratis-gold);
   --stratis-chart-grid: var(--stratis-line);
   --stratis-chart-tick: var(--stratis-muted);
-  --stratis-chart-tooltip-bg: var(--stratis-ink);
+  --stratis-chart-tooltip-bg: #14212b;
   --stratis-chart-tooltip-text: #ffffff;
   --chart-tick: var(--stratis-chart-tick);
   color: var(--stratis-ink);
@@ -73,6 +73,8 @@
   --stratis-success-soft: rgba(52, 211, 153, 0.14);
   --stratis-shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.28);
   --stratis-shadow-modal: 0 18px 45px rgba(0, 0, 0, 0.42);
+  --stratis-chart-tooltip-bg: #0b1218;
+  --stratis-chart-tooltip-text: #edf3f6;
   color: var(--stratis-ink);
   background: var(--stratis-paper);
 }
@@ -136,4 +138,21 @@ textarea {
 
 .dark .stratis-header {
   background: linear-gradient(135deg, #0d141c 0%, #111b24 58%, #123b3f 100%);
+}
+
+.recharts-default-tooltip.stratis-chart-tooltip,
+.stratis-chart-tooltip .recharts-default-tooltip {
+  background: var(--stratis-chart-tooltip-bg) !important;
+  border: 1px solid var(--stratis-line) !important;
+  border-radius: var(--stratis-radius-md) !important;
+  box-shadow: var(--stratis-shadow-modal);
+  color: var(--stratis-chart-tooltip-text) !important;
+}
+
+.stratis-chart-tooltip .recharts-tooltip-label,
+.stratis-chart-tooltip .recharts-tooltip-item,
+.stratis-chart-tooltip .recharts-tooltip-item-name,
+.stratis-chart-tooltip .recharts-tooltip-item-value,
+.stratis-chart-tooltip .recharts-tooltip-item-separator {
+  color: var(--stratis-chart-tooltip-text) !important;
 }

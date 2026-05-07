@@ -231,6 +231,7 @@ const inputClass =
 const textareaClass =
   "focus-ring mt-1 min-h-28 w-full rounded-md border border-line bg-surface px-3 py-2 leading-5 text-ink placeholder:text-muted";
 const chartTooltipProps = {
+  wrapperClassName: "stratis-chart-tooltip",
   contentStyle: {
     background: "var(--stratis-chart-tooltip-bg)",
     border: "1px solid var(--stratis-line)",
@@ -244,6 +245,10 @@ const axisTickStyle = {
   fill: "var(--chart-tick)",
   fontSize: 11,
   fontWeight: 600,
+};
+const compactAxisTickStyle = {
+  ...axisTickStyle,
+  fontSize: 10,
 };
 const STATUS_CLASS: Record<KpiMetric["status"], string> = {
   Good: "border-success/25 bg-success-soft text-success",
@@ -265,6 +270,53 @@ function formatChartCategoryLabel(value: string): string {
     Medication: "Meds",
   };
   return replacements[value] ?? value;
+}
+function splitAxisLabel(value: string, maxWords = 2): string[] {
+  const words = value.split(" ").filter(Boolean);
+  if (words.length <= maxWords) {
+    return words;
+  }
+  return [words.slice(0, maxWords - 1).join(" "), words.slice(maxWords - 1).join(" ")];
+}
+function renderWrappedAxisTick(
+  formatLabel: (value: string) => string,
+  options: { fontSize?: number; lineHeight?: number; maxWords?: number } = {},
+) {
+  const fontSize = options.fontSize ?? 10;
+  const lineHeight = options.lineHeight ?? 10;
+  const maxWords = options.maxWords ?? 2;
+  return function WrappedAxisTick(props: {
+    x?: number;
+    y?: number;
+    payload?: { value?: unknown };
+  }) {
+    const x = props.x ?? 0;
+    const y = props.y ?? 0;
+    const lines = splitAxisLabel(formatLabel(String(props.payload?.value ?? "")), maxWords);
+    return (
+      <text
+        fill="var(--chart-tick)"
+        fontSize={fontSize}
+        fontWeight={600}
+        textAnchor="middle"
+        x={x}
+        y={y + 9}
+      >
+        {lines.map((line, index) => (
+          <tspan dy={index === 0 ? 0 : lineHeight} key={`${line}-${index}`} x={x}>
+            {line}
+          </tspan>
+        ))}
+      </text>
+    );
+  };
+}
+function getVerticalAxisWidth(labels: string[], min = 56, max = 96): number {
+  if (labels.length === 0) {
+    return min;
+  }
+  const longest = Math.max(...labels.map((label) => label.length));
+  return Math.min(max, Math.max(min, Math.round(longest * 5.4 + 10)));
 }
 function formatNumber(value: number): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(1);
@@ -578,12 +630,12 @@ function Overview({
               Blocker Categories
             </span>
           </div>
-          <div className="min-h-64 min-w-0 max-w-full flex-1 overflow-x-auto">
-            <div className="h-64 w-[620px] md:w-full">
+          <div className="min-h-0 min-w-0 max-w-full flex-1 overflow-x-auto">
+            <div className="h-full min-h-[17rem] w-[620px] md:w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={categoryData}
-                  margin={{ bottom: 8, left: 4, right: 8, top: 8 }}
+                  margin={{ bottom: 0, left: 0, right: 8, top: 8 }}
                 >
                   <CartesianGrid
                     strokeDasharray="3 3"
@@ -591,38 +643,16 @@ function Overview({
                   />
                   <XAxis
                     dataKey="name"
-                    height={40}
+                    height={30}
                     interval={0}
-                    tick={(props) => {
-                      const { x, y, payload } = props;
-                      const words = formatChartCategoryLabel(
-                        String(payload.value),
-                      ).split(" ");
-                      return (
-                        <text
-                          fill="var(--chart-tick)"
-                          fontSize={9}
-                          fontWeight={600}
-                          textAnchor="middle"
-                          x={x}
-                          y={y + 12}
-                        >
-                          {" "}
-                          {words.map((word, index) => (
-                            <tspan
-                              dy={index === 0 ? 0 : 11}
-                              key={`${word}-${index}`}
-                              x={x}
-                            >
-                              {" "}
-                              {word}{" "}
-                            </tspan>
-                          ))}{" "}
-                        </text>
-                      );
-                    }}
+                    tick={renderWrappedAxisTick(formatChartCategoryLabel, {
+                      fontSize: 9,
+                      lineHeight: 9,
+                    })}
+                    tickLine={false}
+                    tickMargin={2}
                   />
-                  <YAxis allowDecimals={false} tick={axisTickStyle} />
+                  <YAxis allowDecimals={false} tick={compactAxisTickStyle} width={28} />
                   <Tooltip
                     {...chartTooltipProps}
                     formatter={(value) => [value, "Count"]}
@@ -1870,16 +1900,11 @@ function KpiTree({ dataset }: { dataset: AppDataset }) {
   const selectedGroup = cycleGroups.find(
     (group) => group.category === selectedCategory,
   );
-  const cycleAxisWidth =
-    cycleGroups.length === 0
-      ? 80
-      : Math.min(
-          104,
-          Math.max(
-            74,
-            Math.max(...cycleGroups.map((group) => group.name.length)) * 5.6,
-          ),
-        );
+  const cycleAxisWidth = getVerticalAxisWidth(
+    cycleGroups.map((group) => group.name),
+    58,
+    92,
+  );
   return (
     <section className="space-y-4">
       <div className={`${panelClass} p-4`}>
@@ -2580,6 +2605,11 @@ function BriefExportCharts({ brief }: { brief: string }) {
       "Open leadership attention items",
     ].includes(row.name),
   );
+  const blockerAxisWidth = getVerticalAxisWidth(
+    blockerRows.map((row) => row.name),
+    54,
+    88,
+  );
   if (statusChartData.length === 0 && blockerRows.length === 0) {
     return null;
   }
@@ -2599,7 +2629,7 @@ function BriefExportCharts({ brief }: { brief: string }) {
             <ResponsiveContainer height="100%" width="100%">
               <BarChart
                 data={statusChartData}
-                margin={{ bottom: 42, left: 0, right: 8, top: 8 }}
+                margin={{ bottom: 0, left: 0, right: 8, top: 8 }}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -2607,41 +2637,24 @@ function BriefExportCharts({ brief }: { brief: string }) {
                 />
                 <XAxis
                   dataKey="name"
-                  height={54}
+                  height={36}
                   interval={0}
-                  tick={(props) => {
-                    const { x, y, payload } = props;
-                    const words = String(payload.value)
-                      .replace(
-                        "Open leadership attention items",
-                        "Leadership items",
-                      )
-                      .split(" ");
-                    return (
-                      <text
-                        fill="var(--chart-tick)"
-                        fontSize={10}
-                        fontWeight={600}
-                        textAnchor="middle"
-                        x={x}
-                        y={y + 12}
-                      >
-                        {" "}
-                        {words.map((word, index) => (
-                          <tspan
-                            dy={index === 0 ? 0 : 11}
-                            key={`${word}-${index}`}
-                            x={x}
-                          >
-                            {" "}
-                            {word}{" "}
-                          </tspan>
-                        ))}{" "}
-                      </text>
-                    );
-                  }}
+                  tick={renderWrappedAxisTick(
+                    (value) =>
+                      value
+                        .replace("Ready for discharge", "Ready")
+                        .replace("Blocked discharges", "Blocked")
+                        .replace("Planned discharges", "Planned")
+                        .replace(
+                          "Open leadership attention items",
+                          "Leadership items",
+                        ),
+                    { fontSize: 10, lineHeight: 10, maxWords: 2 },
+                  )}
+                  tickLine={false}
+                  tickMargin={2}
                 />
-                <YAxis allowDecimals={false} tick={axisTickStyle} />
+                <YAxis allowDecimals={false} tick={compactAxisTickStyle} width={28} />
                 <Tooltip
                   {...chartTooltipProps}
                   formatter={(value) => [value, "Count"]}
@@ -2683,10 +2696,10 @@ function BriefExportCharts({ brief }: { brief: string }) {
                 />
                 <YAxis
                   dataKey="name"
-                  tick={axisTickStyle}
-                  tickMargin={4}
+                  tick={compactAxisTickStyle}
+                  tickMargin={2}
                   type="category"
-                  width={96}
+                  width={blockerAxisWidth}
                 />
                 <Tooltip
                   {...chartTooltipProps}
