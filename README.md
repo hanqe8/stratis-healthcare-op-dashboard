@@ -416,7 +416,7 @@ npm test
 ## Current limitations
 
 - Synthetic data only.
-- No PHI or real patient data support.
+- No patient health information or real patient data support.
 - No backend storage.
 - No authentication.
 - No real EHR integration.
@@ -428,13 +428,3 @@ npm test
 - Client-side PDF export may have formatting limitations compared with server-rendered reports.
 
 ---
-
-## Repository status
-
-This is an MVP-stage product build. The current priority is to strengthen test coverage, accessibility, persistence robustness, sample-data realism, and portfolio case-study integration.
-
----
-
-## License
-
-Add a license before broader public use. MIT is a reasonable default for an open portfolio project unless stronger restrictions are preferred.
