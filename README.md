@@ -258,7 +258,7 @@ Recommended screenshot set:
 <table>
   <tr>
     <td width="50%" align="center" valign="top">
-      <img src="docs/assets/readme/governance-log.png" alt="STRATIS Healthcare Ops governance log" width="100%">
+      <img src="docs/assets/readme/kpi-tree.png" alt="STRATIS Healthcare Ops governance log" width="100%">
     </td>
     <td width="50%" align="center" valign="top">
       <img src="docs/assets/readme/operating-brief.png" alt="STRATIS Healthcare Ops operating brief" width="100%">
@@ -267,8 +267,8 @@ Recommended screenshot set:
   <tr>
     <td width="50%" valign="top">
       <sub>
-        <strong>Governance Log</strong><br>
-        Preserves recommendation, decision, escalation, reset, and brief-generation events in readable audit cards.
+        <strong>KPI Tree</strong><br>
+        Links discharge cycle-time pressure to blocker categories, accountable departments, SLA breaches, bed-release risk, and contributing case patterns.
       </sub>
     </td>
     <td width="50%" valign="top">
