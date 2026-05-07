@@ -1,39 +1,39 @@
-# STRATIS Healthcare Ops
+# STRATIS Healthcare Ops Command Centre
 
-AI Command Centre for Regulated Healthcare Operations.
+**Command centre for regulated healthcare operations.**
 
-STRATIS Healthcare Ops is a static, browser-based MVP that demonstrates how regulated healthcare operations can move beyond passive dashboards into a structured operating decision loop.
+STRATIS Healthcare Ops Command Centre is a static, browser-based operations workbench that demonstrates how discharge coordination can move beyond passive dashboarding into a structured operating decision loop.
 
 > Signal → Blocker classification → Risk/SLA prioritisation → Recommendation → Human decision → Escalation/action → Outcome → Governance log → Operating brief
 
-The product uses synthetic discharge workflow data only. It does not use real patient data, does not process PHI, does not make clinical diagnoses or treatment recommendations, and does not require an API key or backend for the MVP.
+The MVP uses synthetic discharge workflow data only. It does not use real patient data, does not process PHI, does not make clinical diagnoses or treatment recommendations, and does not require an API key or backend.
 
 <p align="center">
-  <img src="docs/assets/readme/stratis-healthcare-ops-hero.png" alt="STRATIS Healthcare Ops overview" width="860">
+  <img src="docs/assets/readme/stratis-healthcare-ops-hero.png" alt="STRATIS Healthcare Ops Command Centre product overview" width="100%">
 </p>
 
 ---
 
-## Product Thesis
+## Product thesis
 
-Regulated healthcare operations need more than dashboards. They need decision systems that make operational blockers visible, rank escalation urgency, preserve human judgement, and generate leadership-ready operating briefs with a clear audit trail.
+Regulated healthcare operations need more than operational dashboards. They need decision systems that make blockers visible, rank escalation urgency, preserve human judgement, and generate leadership-ready operating briefs with an auditable trail.
 
-STRATIS Healthcare Ops demonstrates how a deterministic rules engine can support human-in-the-loop operational decisions while keeping the governance boundary explicit.
+STRATIS Healthcare Ops Command Centre demonstrates how deterministic rules, human-in-the-loop review, and structured operating briefs can support accountable non-clinical workflow decisions while keeping the governance boundary explicit.
 
-The product is intentionally scoped as an operations decision-support artifact:
+The product is intentionally scoped as an operations decision-support artefact:
 
 - It supports discharge workflow visibility and escalation prioritisation.
 - It uses synthetic operational data only.
-- It keeps recommendations deterministic and inspectable.
+- It keeps blocker classification, risk scoring, and recommendations deterministic and inspectable.
 - It requires human review for material workflow decisions.
-- It preserves governance events for auditability.
-- It generates operating briefs from accepted operational state.
+- It preserves recommendation and decision events for auditability.
+- It generates operating briefs from current local operating state.
 
 ---
 
-## What This Demonstrates
+## What this demonstrates
 
-STRATIS Healthcare Ops is a portfolio-grade product build that demonstrates:
+STRATIS Healthcare Ops Command Centre is a portfolio-grade product build that demonstrates:
 
 - Healthcare operations workflow design.
 - Regulated decision-support thinking.
@@ -45,11 +45,11 @@ STRATIS Healthcare Ops is a portfolio-grade product build that demonstrates:
 - Executive operating brief generation.
 - Static-site deployment through GitHub Pages.
 
-The project is not intended to show clinical AI. It is designed to show how operational decision systems can be made more structured, reviewable, and accountable.
+The project is not clinical AI. It is designed to show how operational decision systems can be made more structured, reviewable, and accountable without crossing into clinical diagnosis, treatment recommendation, or production healthcare integration.
 
 ---
 
-## Core Operating Loop
+## Core operating loop
 
 ```text
 Signal
@@ -71,155 +71,85 @@ Governance log
 Operating brief
 ```
 
-This loop is the main product differentiator. The application is not just showing operational metrics; it connects those metrics to decisions, escalation ownership, governance events, and leadership-ready reporting.
+This loop is the product differentiator. The application does not only show operational metrics; it connects those metrics to ownership, decision rationale, escalation status, governance events, and leadership-ready reporting.
 
 ---
 
-## Core Use Cases
+## Core use cases
 
-| Use Case | What the Product Supports |
+| Use case | What the product supports |
 |---|---|
 | Discharge workflow monitoring | Track readiness, blockers, SLA breaches, blocker ageing, and bed-release risk. |
 | Escalation prioritisation | Rank operational cases using transparent deterministic scoring rules. |
 | Human-in-the-loop review | Accept, override, escalate, resolve, or reject operational recommendations. |
-| Governance logging | Preserve recommendation, decision, rationale, reset, and brief-generation events. |
-| KPI tree analysis | Link discharge cycle time pressure to blocker categories and accountable owners. |
-| Operating briefs | Generate Daily, Weekly, or Monthly briefs in Executive or Detailed mode. |
+| Governance logging | Record recommendation, decision, override, escalation, resolution, reset, and brief-generation events. |
+| KPI tree analysis | Link discharge cycle-time pressure to blocker categories, accountable departments, SLA pressure, and bed-release risk. |
+| Operating briefs | Generate Daily, Weekly, or Monthly operating briefs in Executive or Detailed mode. |
+| Export and reuse | Export operating briefs and synthetic workflow data for documentation, review, or portfolio presentation. |
 
 ---
 
-## Key Features
+## Key features
 
-### 1. Synthetic Discharge Workflow Dataset
+### 1. Synthetic discharge workflow dataset
 
-The application ships with built-in synthetic discharge workflow data. It is designed to demonstrate operational scenarios without exposing real patient data, PHI, or confidential healthcare information.
+The application ships with built-in synthetic discharge workflow data. It is designed to demonstrate operational scenarios without exposing real patient data, PHI, or confidential healthcare operations information.
 
-### 2. Operations Dashboard
+### 2. Operations overview
 
-Dashboard KPI cards summarise:
+The Overview dashboard summarises planned discharges, ready cases, blocked cases, SLA breaches, average blocker age, bed-release risk, escalation closure, and operating signal patterns.
 
-- Planned discharges
-- Ready cases
-- Blocked cases
-- SLA breaches
-- Average blocker age
-- Bed-release risk
-- Escalation closure
-- Operating risk distribution
+### 3. Command Centre table
 
-### 3. Deterministic Blocker Classification
+The Command Centre surfaces discharge readiness, blocker status, risk scores, SLA pressure, and accountable departments in a filterable operating table.
 
-The app classifies blockers across operational categories:
+### 4. Deterministic blocker classification
 
-- Medication
-- Documentation
-- Transport
-- Caregiver
-- Billing
-- Allied Health
-- Equipment
-- Bed Management
-- Unknown
+The app classifies blockers across operational categories such as Medication, Documentation, Transport, Caregiver, Billing, Allied Health, Equipment, Bed Management, and Unknown. Classification is rule-based in the MVP, making the logic inspectable and testable.
 
-Classification is rule-based in the MVP, making the logic inspectable and testable.
-
-### 4. Prioritised Escalation Queue
+### 5. Prioritised escalation queue
 
 The escalation queue ranks cases using transparent scoring logic based on operational urgency, SLA risk, blocker age, capacity impact, and confidence.
 
-### 5. Recommendation Cards
+### 6. Recommendation cards
 
-Each case can include a recommendation with:
+Each case can include a recommendation with recommended action, rationale, accountable owner, confidence, expected next step, and risk/SLA context.
 
-- Recommended action
-- Rationale
-- Accountable owner
-- Confidence
-- Expected next step
-- Risk and SLA context
+### 7. Human review actions
 
-### 6. Human Review Actions
+Users can accept, override, escalate, resolve, or reject recommendations. Overrides and escalations require rationale capture so that human judgement is visible rather than silently replacing the deterministic recommendation.
 
-Users can act on recommendations by selecting:
+### 8. Governance log
 
-- Accept
-- Override
-- Escalate
-- Resolve
-- Reject
+The browser-local governance log records recommendation, decision, override, escalation, resolution, rejection, reset, and brief-generation events. Governance events are displayed as readable audit cards with filtering and removable active filter chips.
 
-Overrides and escalations require a rationale. This keeps the human decision visible rather than silently replacing the system recommendation.
+### 9. KPI tree
 
-### 7. Governance Log
+The KPI tree links discharge cycle-time pressure to blocker categories, accountable departments, SLA breaches, bed-release risk, and contributing case patterns. Daily, Weekly, and Monthly views help distinguish immediate pressure from recurring operating patterns.
 
-The browser-local governance log records:
+### 10. Operating briefs
 
-- Recommendations generated
-- Human decisions
-- Overrides
-- Escalations
-- Resolutions
-- Rejections
-- Reset events
-- Brief-generation events
+The app generates Daily, Weekly, and Monthly operating briefs in Executive or Detailed mode. Users can preview briefs as formatted text or Markdown and export them for reuse in operating reviews or portfolio documentation.
 
-Governance events are displayed as layperson-readable cards with filtering and removable active filter chips.
+### 11. Configurable governance taxonomy
 
-### 8. KPI Tree
+The frontend governance taxonomy can be configured for event types and categories. Duplicate checks help prevent equivalent labels from being added with different spacing or casing.
 
-The KPI tree links discharge cycle time pressure to blocker categories, owners, reporting periods, and operating implications.
-
-Supported views include:
-
-- Daily
-- Weekly
-- Monthly
-
-The KPI tree is designed to show operational root causes, not just aggregate dashboard numbers.
-
-### 9. Operating Briefs
-
-The app can generate Daily, Weekly, and Monthly operating briefs.
-
-Brief modes:
-
-- Executive
-- Detailed
-
-View modes:
-
-- Formatted Text
-- Markdown
-
-Briefs can be exported in Markdown for reuse in operating reviews, documentation, or portfolio write-ups.
-
-### 10. Configurable Governance Taxonomy
-
-The frontend governance log taxonomy can be configured for event types and event categories. Duplicate checks help prevent equivalent labels from being added with different spacing or casing.
-
-### 11. Command Centre Filters and Operating Table
-
-The Command Centre includes filters and a sortable operating table with adaptive risk indicators.
-
-### 12. CSV Export
+### 12. CSV export
 
 Synthetic cases can be exported as CSV for further analysis or demonstration.
 
-### 13. Light and Dark Mode
+### 13. Light and dark mode
 
 The visual system includes light and dark mode settings aligned to the broader STRATIS workbench family.
 
-### 14. Static Deployment
+### 14. Static deployment
 
-The application is built for GitHub Pages deployment through GitHub Actions.
+The application is built for GitHub Pages deployment through GitHub Actions and does not require a backend for the MVP.
 
 ---
 
-## Application Screenshots
-
-Add screenshots after deployment.
-
-Recommended screenshot set:
+## Application screenshots
 
 <table>
   <tr>
@@ -227,7 +157,7 @@ Recommended screenshot set:
       <img src="docs/assets/readme/overview-dashboard.png" alt="STRATIS Healthcare Ops overview dashboard" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
-      <img src="docs/assets/readme/command-centre.png" alt="STRATIS Healthcare Ops escalation queue" width="100%">
+      <img src="docs/assets/readme/command-centre.png" alt="STRATIS Healthcare Ops command centre operating table" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
       <img src="docs/assets/readme/escalation-queue.png" alt="STRATIS Healthcare Ops escalation queue" width="100%">
@@ -261,7 +191,7 @@ Recommended screenshot set:
       <img src="docs/assets/readme/human-review.png" alt="STRATIS Healthcare Ops human review workflow" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
-      <img src="docs/assets/readme/kpi-tree.png" alt="STRATIS Healthcare Ops governance log" width="100%">
+      <img src="docs/assets/readme/kpi-tree.png" alt="STRATIS Healthcare Ops KPI tree" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
       <img src="docs/assets/readme/operating-brief.png" alt="STRATIS Healthcare Ops operating brief" width="100%">
@@ -291,7 +221,7 @@ Recommended screenshot set:
 
 ---
 
-## Tech Stack
+## Tech stack
 
 | Layer | Technology |
 |---|---|
@@ -301,21 +231,23 @@ Recommended screenshot set:
 | Styling | Tailwind CSS |
 | Charts | Recharts |
 | CSV handling | Papa Parse |
+| Brief export | Markdown, client-side DOCX, client-side PDF |
+| PDF rendering | html2canvas, jsPDF |
 | Persistence | LocalStorage |
 | Testing | Vitest |
 | Deployment | GitHub Actions and GitHub Pages |
 
 ---
 
-## Performance Notes
+## Performance notes
 
-Recharts is split into a dedicated Vite manual chunk named `charts`, with React in `react-vendor`. This keeps the main application bundle smaller while preserving chart availability across multiple dashboard views.
+The app separates chart-heavy functionality from the core interface where practical. Report export is handled client-side to preserve static deployability; PDF export is acceptable for MVP demonstration but should be reassessed if production-grade pagination, archival fidelity, or controlled report storage becomes a requirement.
 
 ---
 
-## Getting Started
+## Getting started
 
-STRATIS Healthcare Ops is a static browser-based application built with React, Vite, TypeScript, and Tailwind CSS.
+STRATIS Healthcare Ops Command Centre is a static browser-based application built with React, Vite, TypeScript, and Tailwind CSS.
 
 Before running the project locally, ensure you have Node.js 18 or later, npm, and Git installed.
 
@@ -368,13 +300,9 @@ Preview the production build locally:
 npm run preview
 ```
 
-If any command differs in your local setup, refer to the scripts defined in `package.json`.
-
 ---
 
-## Recommended First Walkthrough
-
-A recommended reviewer walkthrough is:
+## Recommended reviewer walkthrough
 
 1. Open the Overview dashboard.
 2. Review planned discharges, blocked cases, SLA breaches, and bed-release risk.
@@ -386,18 +314,16 @@ A recommended reviewer walkthrough is:
 8. Open the KPI Tree and review Daily, Weekly, and Monthly views.
 9. Generate an Executive operating brief.
 10. Switch to Detailed mode and inspect the reasoning trail.
-11. Export the brief as Markdown.
+11. Export the brief.
 12. Export synthetic cases as CSV.
 
-This walkthrough demonstrates the core operating loop:
-
-> Signal → Blocker classification → Risk/SLA prioritisation → Recommendation → Human decision → Escalation/action → Outcome → Governance log → Operating brief
+This walkthrough demonstrates the complete operating loop from signal detection to leadership-ready reporting.
 
 ---
 
-## Governance Boundary
+## Governance boundary
 
-This MVP is an operations decision-support artifact.
+This MVP is an operations decision-support artefact.
 
 It does not:
 
@@ -414,7 +340,7 @@ All recommendations are deterministic operational suggestions based on synthetic
 
 ---
 
-## Data and Privacy
+## Data and privacy
 
 This repository and public demo should only use synthetic, public, or non-confidential data.
 
@@ -437,7 +363,7 @@ The MVP is designed for portfolio demonstration and product evaluation. It shoul
 
 | Document | Purpose |
 |---|---|
-| [PRD](docs/prd.md) | Product requirements, user stories, scope, and acceptance criteria |
+| [PRD](docs/prd.md) | Product requirements, user stories, scope, acceptance criteria, and roadmap |
 | [Product Brief](docs/product-brief.md) | Product thesis, positioning, and portfolio rationale |
 | [Architecture](docs/architecture.md) | Static app architecture and module boundaries |
 | [KPI Tree](docs/kpi-tree.md) | Metric hierarchy and operational root-cause mapping |
@@ -463,6 +389,7 @@ Recommended test coverage:
 - Taxonomy duplicate checks.
 - CSV export behaviour.
 - Filtering and sorting logic.
+- Export artifact smoke tests for Markdown, DOCX, and PDF paths.
 
 Run tests with:
 
@@ -474,8 +401,6 @@ npm test
 
 ## Roadmap
 
-Near-term roadmap themes:
-
 | Theme | Description |
 |---|---|
 | CSV import UI and schema validation | Allow users to import their own synthetic or non-confidential operational datasets. |
@@ -484,11 +409,11 @@ Near-term roadmap themes:
 | Optional AI-generated narrative | Add AI-generated operating narrative with deterministic fallback and human review. |
 | IndexedDB persistence | Move from LocalStorage to IndexedDB/Dexie for more robust local project storage. |
 | Accessibility hardening | Improve keyboard workflows, focus states, table navigation, and screen-reader support. |
-| Screenshot and demo polish | Add README screenshots, demo GIF, and a more complete Product Labs case study page. |
+| Screenshot and demo polish | Add demo GIFs and a more complete Product Labs case study page. |
 
 ---
 
-## Current Limitations
+## Current limitations
 
 - Synthetic data only.
 - No PHI or real patient data support.
@@ -500,26 +425,16 @@ Near-term roadmap themes:
 - No clinical diagnosis or treatment recommendation.
 - LocalStorage is suitable for MVP use but not enterprise-grade persistence.
 - Operating recommendations are deterministic and simplified for portfolio demonstration.
+- Client-side PDF export may have formatting limitations compared with server-rendered reports.
 
 ---
 
-## Repository Status
+## Repository status
 
-This is an MVP-stage product build.
-
-The current priority is to improve:
-
-- UI polish;
-- screenshot coverage;
-- README presentation;
-- test coverage;
-- accessibility;
-- persistence robustness;
-- sample data realism;
-- Product Labs integration.
+This is an MVP-stage product build. The current priority is to strengthen test coverage, accessibility, persistence robustness, sample-data realism, and portfolio case-study integration.
 
 ---
 
 ## License
 
-Add a license before broader public use. MIT is a reasonable default for an open portfolio project unless you want stronger restrictions.
+Add a license before broader public use. MIT is a reasonable default for an open portfolio project unless stronger restrictions are preferred.
