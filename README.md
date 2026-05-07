@@ -227,10 +227,10 @@ Recommended screenshot set:
       <img src="docs/assets/readme/overview-dashboard.png" alt="STRATIS Healthcare Ops overview dashboard" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
-      <img src="docs/assets/readme/escalation-queue.png" alt="STRATIS Healthcare Ops escalation queue" width="100%">
+      <img src="docs/assets/readme/command-centre.png" alt="STRATIS Healthcare Ops escalation queue" width="100%">
     </td>
     <td width="33%" align="center" valign="top">
-      <img src="docs/assets/readme/human-review.png" alt="STRATIS Healthcare Ops human review workflow" width="100%">
+      <img src="docs/assets/readme/escalation-queue.png" alt="STRATIS Healthcare Ops escalation queue" width="100%">
     </td>
   </tr>
   <tr>
@@ -242,14 +242,14 @@ Recommended screenshot set:
     </td>
     <td width="33%" valign="top">
       <sub>
-        <strong>Escalation Queue</strong><br>
-        Prioritises operational cases using transparent scoring rules and identifies the next accountable action.
+        <strong>Command Centre</strong><br>
+        Surfaces discharge readiness, blocker status, risk scores, SLA pressure, and accountable departments in a filterable operating table.
       </sub>
     </td>
     <td width="33%" valign="top">
       <sub>
-        <strong>Human Review</strong><br>
-        Captures accept, override, escalate, resolve, or reject decisions with rationale and governance traceability.
+        <strong>Escalation Queue</strong><br>
+        Prioritises operational cases using transparent scoring rules and identifies the next accountable action.
       </sub>
     </td>
   </tr>
@@ -257,21 +257,30 @@ Recommended screenshot set:
 
 <table>
   <tr>
-    <td width="50%" align="center" valign="top">
+    <td width="33%" align="center" valign="top">
+      <img src="docs/assets/readme/human-review.png" alt="STRATIS Healthcare Ops human review workflow" width="100%">
+    </td>
+    <td width="33%" align="center" valign="top">
       <img src="docs/assets/readme/kpi-tree.png" alt="STRATIS Healthcare Ops governance log" width="100%">
     </td>
-    <td width="50%" align="center" valign="top">
+    <td width="33%" align="center" valign="top">
       <img src="docs/assets/readme/operating-brief.png" alt="STRATIS Healthcare Ops operating brief" width="100%">
     </td>
   </tr>
   <tr>
-    <td width="50%" valign="top">
+    <td width="33%" valign="top">
+      <sub>
+        <strong>Human Review</strong><br>
+        Captures accept, override, escalate, resolve, or reject decisions with rationale and governance traceability.
+      </sub>
+    </td>
+    <td width="33%" valign="top">
       <sub>
         <strong>KPI Tree</strong><br>
         Links discharge cycle-time pressure to blocker categories, accountable departments, SLA breaches, bed-release risk, and contributing case patterns.
       </sub>
     </td>
-    <td width="50%" valign="top">
+    <td width="33%" valign="top">
       <sub>
         <strong>Operating Brief</strong><br>
         Converts operating state into Daily, Weekly, or Monthly leadership-ready briefs in Executive or Detailed mode.
